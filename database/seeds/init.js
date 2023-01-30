@@ -11,16 +11,19 @@ exports.seed = async function (knex) {
   // insert seed data
   await knex('brands').insert([
     {
-      id: 1,
       brandName: 'google',
+      categoryId: 1,
+      AddonMealId: 1
     },
     {
-      id: 2,
       brandName: 'amazon',
+      categoryId: 2,
+      AddonMealId: 2
     },
     {
-      id: 3,
       brandName: 'netflix',
+      categoryId: 3,
+      AddonMealId: 3
     },
   ]);
 
@@ -64,10 +67,19 @@ exports.seed = async function (knex) {
 
   return knex('addon-meals').insert([
     {
-      id: 1,
       categoryNameId: 1,
       addonMealName: 'rice',
       price: 55
+    },
+    {
+      categoryNameId: 2,
+      addonMealName: 'yam',
+      price: 70
+    },
+    {
+      categoryNameId: 3,
+      addonMealName: 'sausage',
+      price: 92
     },
   ]);
 };

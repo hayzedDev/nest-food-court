@@ -13,8 +13,6 @@
     "migrate-specific": "knex migrate:up 20230119121952_edit_addonMeal_table.js --migrations-directory ./database/migrations/ --env development"
   },
   "keywords": [],
-
-
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -36,7 +34,9 @@
     "rxjs": "^7.8.0"
   },
   "devDependencies": {
+    "@nestjs/cli": "^9.1.9",
     "@types/node": "^18.11.18",
+    "nest": "^0.1.6",
     "typescript": "^4.9.4"
   }
 }

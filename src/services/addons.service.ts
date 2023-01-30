@@ -33,6 +33,20 @@ export class AddonsService {
     console.log(createAddonDto);
     console.log(brandId, typeof brandId);
 
+    let category
+
+    if (createAddonDto.category)   category = await this.categoryModel.query().where('categoryName', `${createAddonDto.category}`)
+
+    console.log(category)
+
+    // await this.AddonModel.query().insert({
+    //     categoryNameId: 2,
+    //     addonMealName: createAddonDto.name,
+    //     price: createAddonDto.price,
+    //     description: createAddonDto.description,
+    //     brandId: +brandId
+    //   });
+
     // const addonMeal = await this.knex.table('addon-meals').insert({
     //   categoryNameId: 2,
     //   addonMealName: createAddonDto.name,
@@ -47,7 +61,7 @@ export class AddonsService {
       description: createAddonDto.description,
     };
 
-    // return { addonMeal };
+    return {  };
   }
 
   async findAll() {
