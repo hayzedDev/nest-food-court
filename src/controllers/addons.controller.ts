@@ -48,7 +48,7 @@ export class AddonsController {
     }
 
     addonServiceRes.brandNotFound = undefined;
-    addonServiceRes = JSON.parse(JSON.stringify(addonServiceRes));
+    // addonServiceRes = JSON.parse(JSON.stringify(addonServiceRes));
     return addonServiceRes;
   }
 

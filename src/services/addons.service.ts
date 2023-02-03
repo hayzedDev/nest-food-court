@@ -82,12 +82,13 @@ export class AddonsService {
 
   async getMealAddons(brandId: string) {
     const brandIds = await this.AddonModel.query().where({
-      brandId,
-      // brandId: +brandId
+      // brandId,
+      brandId: +brandId,
     });
-
     console.log(brandIds);
-    return `This action returns all addons`;
+
+    return brandIds;
+    // return `This action returns all addons`;
   }
 
   async findOne(id: number) {

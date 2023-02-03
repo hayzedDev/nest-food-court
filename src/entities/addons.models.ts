@@ -24,7 +24,7 @@ export class Addon extends Model {
     // join: { from: 'brands.id', to: 'addon-meals.id' },
     join: { from: 'addon-meals.brandId', to: 'brands.id' },
   })
-  brands: Brand[];
+  brand: Brand;
 
   @Relation({
     modelClass: Category,
@@ -32,7 +32,7 @@ export class Addon extends Model {
     // join: { from: 'categories.id', to: 'addon-meals.id' },
     join: { from: 'addon-meals.categoryId', to: 'categories.id' },
   })
-  categories: Category[];
+  category: Category;
   @Column({ type: columnTypes.string })
   addonMealName: string;
   @Column({ type: columnTypes.date })
