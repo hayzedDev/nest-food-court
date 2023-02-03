@@ -7,7 +7,7 @@ import { UpdateCategoryDto } from '../dtos/categoriesdto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
-  constructor(@InjectKnex() private readonly knex: Knex) {}
+  constructor() {}
 
   // static knex: Knex =
 

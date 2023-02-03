@@ -20,6 +20,7 @@ export class Category extends Model {
   @Relation({
     modelClass: Brand,
     relation: relationTypes.HasManyRelation,
+    join: { from: 'brands.id', to: 'categories.id' },
   })
   brandId: number;
 

@@ -19,17 +19,17 @@ export class Brand extends Model {
   created_at: Date;
   @Column({ type: columnTypes.date })
   updated_at: Date;
-  @Column({ type: columnTypes.number })
-  @Relation({
-    modelName: Category,
-    relation: relationTypes.HasManyRelation,
-  })
-  categoryId: number;
+  // @Column({ type: columnTypes.number })
+  // @Relation({
+  //   modelName: Category,
+  //   relation: relationTypes.HasManyRelation,
+  // })
+  // categoryId: number;
 
-  @Relation({
-    modelClass: Addon,
-    relation: relationTypes.HasManyRelation,
-    // join: { from: 'addon-meals.id', to: 'brand.id' },
-  })
-  addonMealId: number;
+  // @Relation({
+  //   modelClass: Addon,
+  //   relation: relationTypes.HasManyRelation,
+  //   // join: { from: 'addon-meals.id', to: 'brand.id' },
+  // })
+  // addonMealId: number;
 }

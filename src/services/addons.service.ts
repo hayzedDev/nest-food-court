@@ -11,6 +11,7 @@ import {
   InjectConnection,
   Connection,
 } from 'nestjs-objection';
+
 // import { Knex } from 'knex';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
@@ -29,23 +30,45 @@ export class AddonsService {
     @InjectModel(Brand) private readonly BrandModel: typeof Brand,
   ) {}
 
-  async create(createAddonDto: CreateAddonDto, brandId: string) {
+  async createNewMealAddon(createAddonDto: CreateAddonDto, brandId: string) {
     console.log(createAddonDto);
     console.log(brandId, typeof brandId);
 
-    let category
+    const brand = await this.BrandModel.query().where('id', brandId);
 
-    if (createAddonDto.category)   category = await this.categoryModel.query().where('categoryName', `${createAddonDto.category}`)
+    console.log(brand);
 
-    console.log(category)
+    if (brand.length === 0) return { brandNotFound: true };
 
-    // await this.AddonModel.query().insert({
-    //     categoryNameId: 2,
-    //     addonMealName: createAddonDto.name,
-    //     price: createAddonDto.price,
-    //     description: createAddonDto.description,
-    //     brandId: +brandId
-    //   });
+    let category;
+
+    if (createAddonDto.category)
+      category = await this.categoryModel
+        .query()
+        .where('categoryName', `${createAddonDto.category}`);
+
+    // Check if category exists and determine the value of category(number | undefined)
+    const categoryId = Array.isArray(category)
+      ? category.length !== 0
+        ? category[0].id
+        : undefined
+      : undefined;
+
+    console.log(category, categoryId);
+    // return;
+
+    const object = {
+      categoryId,
+      addonMealName: createAddonDto.name,
+      price: createAddonDto.price,
+      description: createAddonDto.description,
+      brandId: +brandId,
+    };
+
+    console.log(object);
+    const result = await this.AddonModel.query().insert(object);
+
+    // console.log(result, 'line 68');
 
     // const addonMeal = await this.knex.table('addon-meals').insert({
     //   categoryNameId: 2,
@@ -54,17 +77,16 @@ export class AddonsService {
     //   description: createAddonDto.description,
     // });
 
-    const obj = {
-      categoryNameId: 2,
-      addonMealName: createAddonDto.name,
-      price: createAddonDto.price,
-      description: createAddonDto.description,
-    };
-
-    return {  };
+    return {};
   }
 
-  async findAll() {
+  async getMealAddons(brandId: string) {
+    const brandIds = await this.AddonModel.query().where({
+      brandId,
+      // brandId: +brandId
+    });
+
+    console.log(brandIds);
     return `This action returns all addons`;
   }
 

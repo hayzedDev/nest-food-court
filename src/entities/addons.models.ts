@@ -6,7 +6,7 @@ import {
   relationTypes,
   columnTypes,
 } from 'nestjs-objection';
-import {Brand} from './brands.models';
+import { Brand } from './brands.models';
 import { Category } from './categories.models';
 
 @Table({ tableName: 'addon-meals' })
@@ -21,20 +21,23 @@ export class Addon extends Model {
   @Relation({
     modelClass: Brand,
     relation: relationTypes.HasManyRelation,
-    // join: { from: 'addon-meals.id', to: 'brand.id' },
+    // join: { from: 'brands.id', to: 'addon-meals.id' },
+    join: { from: 'addon-meals.brandId', to: 'brands.id' },
   })
-  brandId: number;
+  brands: Brand[];
+
   @Relation({
     modelClass: Category,
-    relation: relationTypes.HasManyRelation, //category hasMany addons (To my understanding for now)
-    // join: { from: 'addon-meals.id', to: 'brand.id' },
+    relation: relationTypes.HasOneRelation, //category hasMany addons (To my understanding for now)
+    // join: { from: 'categories.id', to: 'addon-meals.id' },
+    join: { from: 'addon-meals.categoryId', to: 'categories.id' },
   })
-  categoryId: number;
+  categories: Category[];
   @Column({ type: columnTypes.string })
   addonMealName: string;
   @Column({ type: columnTypes.date })
   created_at: Date;
-  @Column({ type: columnTypes.date })
+  @Column({ type: columnTypes.date, default: true })
   updated_at: Date;
 }
 

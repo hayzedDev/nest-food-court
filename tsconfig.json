@@ -16,6 +16,7 @@
     "target": "esnext",
     "rootDir": "./",
     "outDir": "dist",
+    "watch": true,
     "strictPropertyInitialization": false
   }
 }

@@ -12,18 +12,18 @@ exports.seed = async function (knex) {
   await knex('brands').insert([
     {
       brandName: 'google',
-      categoryId: 1,
-      AddonMealId: 1
+      // categoryId: 1,
+      // AddonMealId: 1
     },
     {
       brandName: 'amazon',
-      categoryId: 2,
-      AddonMealId: 2
+      // categoryId: 2,
+      // AddonMealId: 2
     },
     {
       brandName: 'netflix',
-      categoryId: 3,
-      AddonMealId: 3
+      // categoryId: 3,
+      // AddonMealId: 3
     },
   ]);
 
@@ -31,55 +31,58 @@ exports.seed = async function (knex) {
     {
       id: 1,
       categoryName: 'vegans',
-      brandNameId: 3,
+      brandId: 3,
     },
     {
       id: 2,
       categoryName: 'legumes',
-      brandNameId: 3,
+      brandId: 3,
     },
     {
       id: 3,
       categoryName: 'sugars',
-      brandNameId: 2,
+      brandId: 2,
     },
     {
       id: 4,
       categoryName: 'milk-products',
-      brandNameId: 1,
+      brandId: 1,
     },
     {
       id: 5,
       categoryName: 'vegetables',
-      brandNameId: 1,
+      brandId: 1,
     },
     {
       id: 6,
       categoryName: 'beverages',
-      brandNameId: 1,
+      brandId: 1,
     },
     {
       id: 7,
       categoryName: 'cereals',
-      brandNameId: 2,
+      brandId: 2,
     },
   ]);
 
   return knex('addon-meals').insert([
     {
-      categoryNameId: 1,
+      categoryId: 1,
       addonMealName: 'rice',
-      price: 55
+      price: 55,
+      brandId: 1,
     },
     {
-      categoryNameId: 2,
+      categoryId: 2,
       addonMealName: 'yam',
-      price: 70
+      price: 70,
+      brandId: 2,
     },
     {
-      categoryNameId: 3,
+      categoryId: 3,
       addonMealName: 'sausage',
-      price: 92
+      price: 92,
+      brandId: 3,
     },
   ]);
 };
