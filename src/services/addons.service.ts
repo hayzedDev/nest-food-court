@@ -35,11 +35,8 @@ export class AddonsService {
     console.log(brandId, typeof brandId);
 
     // Check if the brand exist
-    const brand = await this.BrandModel.query().where('id', brandId);
-
-    console.log(brand);
-
-    if (brand.length === 0) return { brandNotFound: true };
+    if ((await this.BrandModel.query().where('id', brandId)).length === 0)
+      return { brandNotFound: true };
 
     let category;
 
@@ -67,38 +64,32 @@ export class AddonsService {
       brandId: +brandId,
     };
 
-    console.log(object);
     const result = await this.AddonModel.query().insert(object);
-
-    // console.log(result, 'line 68');
-
-    // const addonMeal = await this.knex.table('addon-meals').insert({
-    //   categoryNameId: 2,
-    //   addonMealName: createAddonDto.name,
-    //   price: createAddonDto.price,
-    //   description: createAddonDto.description,
-    // });
 
     return { result };
   }
 
   async getMealAddons(brandId: string) {
-    const brandIds = await this.AddonModel.query().where({
+    // check if the specified brand exists
+    if ((await this.BrandModel.query().where('id', brandId)).length === 0)
+      return { brandNotFound: true };
+
+    const mealAddons = await this.AddonModel.query().where({
       brandId,
       // brandId: +brandId,
     });
-    console.log(brandIds);
+    console.log(mealAddons);
 
-    return brandIds;
+    return { mealAddons };
     // return `This action returns all addons`;
   }
 
   async getMealAddon(brandId: string, addonId: string) {
-    const brand = await this.BrandModel.query().where('id', brandId);
+    // check if the specified brand exists
+    if ((await this.BrandModel.query().where('id', brandId)).length === 0)
+      return { brandNotFound: true };
 
-    console.log(brand);
-
-    if (brand.length === 0) return { brandNotFound: true };
+    // get the addon meals for that brand
     const addons = await this.AddonModel.query().where({
       // brandId,
       brandId,
@@ -109,8 +100,83 @@ export class AddonsService {
     return { addons };
   }
 
-  async update(id: number, updateAddonDto: UpdateAddonDto) {
-    return `This action updates a #${id} addon`;
+  async updateAddon(
+    brandId: string,
+    addonId: string,
+    updateAddonDto: UpdateAddonDto,
+  ) {
+    // check if the specified brand exists
+    if ((await this.BrandModel.query().where('id', brandId)).length === 0)
+      return { brandNotFound: true };
+
+    // get the addon
+    const addons = await this.AddonModel.query().where({
+      // brandId,
+      brandId,
+      id: addonId,
+    });
+    console.log(addons);
+
+    // check if the addon exist
+    if (addons.length === 0) return { addonNotFound: true };
+
+    let category;
+
+    // Check if category is supplied in the body of the endpoint
+    if (updateAddonDto.category)
+      category = await this.categoryModel
+        .query()
+        .where('categoryName', `${updateAddonDto.category}`);
+
+    // Check if category exists and determine the value of category(number | undefined)
+    const categoryId = Array.isArray(category)
+      ? category.length !== 0
+        ? category[0].id
+        : undefined
+      : undefined;
+
+    //
+    console.log(categoryId);
+
+    // get the addon in the DB
+    const oldMealAddon = (
+      await this.AddonModel.query().where({
+        // brandId,
+        brandId,
+        id: addonId,
+      })
+    )[0];
+
+    // delete the meal addon
+    const reponse = await this.AddonModel.query()
+      .where({
+        // brandId,
+        brandId,
+        id: addonId,
+      })
+      .del();
+    // create a new meal addon of the same id
+    const obj = {
+      id: oldMealAddon.id,
+      categoryId: categoryId || oldMealAddon.categoryId,
+      addonMealName: updateAddonDto.name || oldMealAddon.addonMealName,
+      price: updateAddonDto.price,
+      description: updateAddonDto.description,
+      brandId,
+    };
+    const mealAddon = await this.AddonModel.query().insert(obj);
+
+    // update the addon in the DB
+    console.log(mealAddon);
+    // .update({
+    //   categoryId: categoryId ? categoryId : 'null',
+    //   addonMealName: updateAddonDto.name,
+    //   price: updateAddonDto.price,
+    //   description: updateAddonDto.description,
+    //   brandId: +brandId,
+    // });
+
+    return { mealAddon };
   }
 
   async remove(id: number) {
