@@ -20,9 +20,9 @@ export class Category extends Model {
   @Relation({
     modelClass: Brand,
     relation: relationTypes.HasManyRelation,
-    join: { from: 'brands.id', to: 'categories.id' },
+    join: { from: 'categories.brandId', to: 'brands.id' },
   })
-  brandId: number;
+  brand: Brand;
 
   @Column({ type: columnTypes.date })
   created_at: Date;
