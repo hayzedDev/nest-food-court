@@ -133,8 +133,31 @@ export class AddonsController {
     return res.mealAddon;
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.addonsService.remove(+id);
+  @Delete('brands/:brandId/addons/:addonId')
+  async remove(
+    @Param('brandId') brandId: string,
+    @Param('addonId') addonId: string,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const res = await this.addonsService.deleteAddon(brandId, addonId);
+
+    // check if the brand is not found
+    if (res.brandNotFound) {
+      response.status(404).send({
+        success: false,
+        message: `The specified brand is not found. Please create the brand first`,
+      });
+      return;
+    }
+    // check if the addon is not found
+    if (res.addonNotFound) {
+      response.status(404).send({
+        success: false,
+        message: `The specified addon is not found. Hence, it can not be updated`,
+      });
+      return;
+    }
+
+    return res.deleted;
   }
 }

@@ -109,7 +109,7 @@ export class AddonsService {
     if ((await this.BrandModel.query().where('id', brandId)).length === 0)
       return { brandNotFound: true };
 
-    // get the addon
+    // get the addon in the db
     const addons = await this.AddonModel.query().where({
       // brandId,
       brandId,
@@ -138,17 +138,8 @@ export class AddonsService {
     //
     console.log(categoryId);
 
-    // get the addon in the DB
-    const oldMealAddon = (
-      await this.AddonModel.query().where({
-        // brandId,
-        brandId,
-        id: addonId,
-      })
-    )[0];
-
     // delete the meal addon
-    const reponse = await this.AddonModel.query()
+    await this.AddonModel.query()
       .where({
         // brandId,
         brandId,
@@ -157,9 +148,9 @@ export class AddonsService {
       .del();
     // create a new meal addon of the same id
     const obj = {
-      id: oldMealAddon.id,
-      categoryId: categoryId || oldMealAddon.categoryId,
-      addonMealName: updateAddonDto.name || oldMealAddon.addonMealName,
+      id: addons[0].id,
+      categoryId: categoryId || addons[0].categoryId,
+      addonMealName: updateAddonDto.name || addons[0].addonMealName,
       price: updateAddonDto.price,
       description: updateAddonDto.description,
       brandId,
@@ -179,7 +170,25 @@ export class AddonsService {
     return { mealAddon };
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} addon`;
+  async deleteAddon(brandId: string, addonId: string) {
+    // 1. check if brand exist
+    // check if the specified brand exists
+    if ((await this.BrandModel.query().where('id', brandId)).length === 0)
+      return { brandNotFound: true };
+
+    // 2. check if addon exist for that brand
+    if (
+      (await this.AddonModel.query().where({ brandId, id: addonId })).length ===
+      0
+    )
+      return { addonNotFound: true };
+
+    // 3. delete the addon
+
+    const deleted = await this.AddonModel.query()
+      .where({ brandId, id: addonId })
+      .del();
+
+    return { deleted };
   }
 }
