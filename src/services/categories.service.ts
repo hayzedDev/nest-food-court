@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { Knex } from 'knex';
-import { InjectModel } from 'nest-knexjs';
-import { InjectKnex } from 'nestjs-knex';
+import { InjectModel } from 'nestjs-objection';
+
 import { CreateCategoryDto } from '../dtos/categoriesdto/create-category.dto';
 import { UpdateCategoryDto } from '../dtos/categoriesdto/update-category.dto';
+import { Addon } from '../entities/addons.models';
+import { Brand } from '../entities/brands.models';
+import { Category } from '../entities/categories.models';
 
 @Injectable()
 export class CategoriesService {
-  constructor() {}
+  constructor(
+    @InjectModel(Addon) private readonly AddonModel: typeof Addon,
+    @InjectModel(Category) private readonly categoryModel: typeof Category,
+    @InjectModel(Brand) private readonly BrandModel: typeof Brand,
+  ) {}
 
   // static knex: Knex =
 
@@ -15,8 +22,14 @@ export class CategoriesService {
   //   return await this.knex.table;
   // }
 
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+  async createCategory(brandId: string, createCategoryDto: CreateCategoryDto) {
+    // 1. check if brand exist
+    if ((await this.BrandModel.query().where('id', brandId)).length === 0)
+      return { brandNotFound: true };
+
+    // 2. create the new category
+    const categoryObj = { brandId, categoryName: createCategoryDto.name };
+    return await this.categoryModel.query().insert(categoryObj);
   }
 
   findAll() {

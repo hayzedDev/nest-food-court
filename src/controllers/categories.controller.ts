@@ -11,6 +11,7 @@ import {
 import { CategoriesService } from '../services/categories.service';
 import { CreateCategoryDto } from '../dtos/categoriesdto/create-category.dto';
 import { UpdateCategoryDto } from '../dtos/categoriesdto/update-category.dto';
+import { Response } from 'express';
 
 @Controller()
 export class CategoriesController {

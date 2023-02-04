@@ -5,12 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import {
-  InjectModel,
-  synchronize,
-  InjectConnection,
-  Connection,
-} from 'nestjs-objection';
+import { InjectModel } from 'nestjs-objection';
 
 // import { Knex } from 'knex';
 import { InjectKnex, Knex } from 'nestjs-knex';
@@ -172,7 +167,6 @@ export class AddonsService {
 
   async deleteAddon(brandId: string, addonId: string) {
     // 1. check if brand exist
-    // check if the specified brand exists
     if ((await this.BrandModel.query().where('id', brandId)).length === 0)
       return { brandNotFound: true };
 
