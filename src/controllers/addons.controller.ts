@@ -12,7 +12,7 @@ import {
   Res,
 } from '@nestjs/common';
 
-import { Response } from 'express';
+import { response, Response } from 'express';
 
 import { AddonsService } from '../services/addons.service';
 import { CreateAddonDto } from '../dtos/addonsdto/create-addon.dto';
@@ -57,9 +57,25 @@ export class AddonsController {
     return this.addonsService.getMealAddons(brandId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.addonsService.findOne(+id);
+  @Get('/brands/:brandId/addons/:addonId')
+  async findOne(
+    @Param('brandId') brandId: string,
+    @Param('addonId') addonId: string,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const res = await this.addonsService.getMealAddon(brandId, addonId);
+
+    if (res.brandNotFound) {
+      response.status(404).send({
+        success: false,
+        message: `The specified brand is not found. Please create the brand first`,
+      });
+      return;
+    }
+
+    res.brandNotFound = undefined;
+    // res = JSON.parse(JSON.stringify(res));
+    return res.addons;
   }
 
   @Patch(':id')

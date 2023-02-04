@@ -34,6 +34,7 @@ export class AddonsService {
     console.log(createAddonDto);
     console.log(brandId, typeof brandId);
 
+    // Check if the brand exist
     const brand = await this.BrandModel.query().where('id', brandId);
 
     console.log(brand);
@@ -42,6 +43,7 @@ export class AddonsService {
 
     let category;
 
+    // Check if category is supplied in the body of the endpoint
     if (createAddonDto.category)
       category = await this.categoryModel
         .query()
@@ -77,13 +79,13 @@ export class AddonsService {
     //   description: createAddonDto.description,
     // });
 
-    return {};
+    return { result };
   }
 
   async getMealAddons(brandId: string) {
     const brandIds = await this.AddonModel.query().where({
-      // brandId,
-      brandId: +brandId,
+      brandId,
+      // brandId: +brandId,
     });
     console.log(brandIds);
 
@@ -91,8 +93,20 @@ export class AddonsService {
     // return `This action returns all addons`;
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} addon`;
+  async getMealAddon(brandId: string, addonId: string) {
+    const brand = await this.BrandModel.query().where('id', brandId);
+
+    console.log(brand);
+
+    if (brand.length === 0) return { brandNotFound: true };
+    const addons = await this.AddonModel.query().where({
+      // brandId,
+      brandId,
+      id: addonId,
+    });
+    console.log(addons);
+
+    return { addons };
   }
 
   async update(id: number, updateAddonDto: UpdateAddonDto) {
