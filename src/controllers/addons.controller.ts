@@ -18,6 +18,8 @@ import { AddonsService } from '../services/addons.service';
 import { CreateAddonDto } from '../dtos/addonsdto/create-addon.dto';
 import { UpdateAddonDto } from '../dtos/addonsdto/update-addon.dto';
 
+import { CreateCategoryDto } from './../dtos/categoriesdto/create-category.dto';
+
 @Controller()
 export class AddonsController {
   constructor(
@@ -158,6 +160,7 @@ export class AddonsController {
       return;
     }
 
-    return res.deleted;
+    response.status(204).send();
+    return;
   }
 }
