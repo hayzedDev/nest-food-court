@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Res,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { CategoriesService } from '../services/categories.service';
 import { CreateCategoryDto } from '../dtos/categoriesdto/create-category.dto';
@@ -15,13 +17,16 @@ import { Response } from 'express';
 
 @Controller()
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(
+    @Inject(forwardRef(() => CategoriesService))
+    private readonly categoriesService: CategoriesService,
+  ) {}
 
   @Post('/brands/:brandId/addon-categories')
   async createCategory(
     @Param('brandId') brandId: string,
     @Res({ passthrough: true }) response: Response,
-    createCategoryDto: CreateCategoryDto,
+    @Body() createCategoryDto: CreateCategoryDto,
   ) {
     const res = await this.categoriesService.createCategory(
       brandId,
@@ -36,23 +41,14 @@ export class CategoriesController {
       });
       return;
     }
-    // check if the addon is not found
-    if (res.addonNotFound) {
-      response.status(404).send({
-        success: false,
-        message: `The specified addon is not found. Hence, it can not be updated`,
-      });
-      return;
-    }
 
-    response.status(204).send();
-    return;
+    return res.newCategory;
   }
 
-  @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto);
-  }
+  // @Post()
+  // create(@Body() createCategoryDto: CreateCategoryDto) {
+  //   return this.categoriesService.create(createCategoryDto);
+  // }
 
   @Get()
   findAll() {
@@ -77,3 +73,5 @@ export class CategoriesController {
     return this.categoriesService.remove(+id);
   }
 }
+
+// create a new

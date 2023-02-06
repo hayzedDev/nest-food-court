@@ -10,7 +10,8 @@
     "rollback:migration": "knex migrate:down  20230121165346_create_new_brand__category__addonMeal.js   --migrations-directory database/migrations/    --env development",
     "migrate": "knex migrate:up 20230121165346_create_new_brand__category__addonMeal.js  --migrations-directory ./database/migrations/ --env development",
     "seed": "knex seed:run --specific=init.js --env development",
-    "migrate-specific": "knex migrate:up 20230131161405_remove_brandId_in_addon-meals.js --migrations-directory ./database/migrations/ --env development"
+    "migrate:specific": "knex migrate:up 20230206123557_create_a_new_user_table.js --migrations-directory ./database/migrations/ --env development",
+    "migrate:init": "knex migrate:make create_a_new_user_table --migrations-directory ./database/migrations/ --env development"
   },
   "keywords": [],
   "author": "",

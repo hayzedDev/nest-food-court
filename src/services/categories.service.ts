@@ -29,7 +29,8 @@ export class CategoriesService {
 
     // 2. create the new category
     const categoryObj = { brandId, categoryName: createCategoryDto.name };
-    return await this.categoryModel.query().insert(categoryObj);
+    const newCategory = await this.categoryModel.query().insert(categoryObj);
+    return { newCategory };
   }
 
   findAll() {
