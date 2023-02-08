@@ -15,6 +15,8 @@ import { Addon } from './entities/addons.models';
 import { Brand } from './entities/brands.models';
 import { Category } from './entities/categories.models';
 import { UsersModule } from './users/users.module';
+import { UsersController } from './controllers/users.controller';
+import { UsersService } from './services/users.service';
 
 require('dotenv').config();
 
@@ -37,9 +39,14 @@ console.log(dbConfig[nodeEnv]);
       // }
     }),
     ObjectionModule.forFeature([Addon, Brand, Category]),
-    UsersModule,
+    // UsersModule,
   ],
-  controllers: [AddonsController, BrandsController, CategoriesController],
-  providers: [AddonsService, BrandsService, CategoriesService],
+  controllers: [
+    AddonsController,
+    BrandsController,
+    CategoriesController,
+    UsersService,
+  ],
+  providers: [AddonsService, BrandsService, CategoriesService, UsersController],
 })
 export class AppModule {}
