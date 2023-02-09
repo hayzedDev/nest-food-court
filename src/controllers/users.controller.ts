@@ -13,10 +13,8 @@ import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dtos/usersdto/create-user.dto';
 import { UpdateUserDto } from '../dtos/usersdto/update-user.dto';
 
-@Controller('users')
+@Controller()
 export class UsersController {
-  // constructor()
-
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,

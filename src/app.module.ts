@@ -14,9 +14,9 @@ import { ObjectionModule, Model } from 'nestjs-objection';
 import { Addon } from './entities/addons.models';
 import { Brand } from './entities/brands.models';
 import { Category } from './entities/categories.models';
-import { UsersModule } from './users/users.module';
 import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
+import { User } from './entities/user.model';
 
 require('dotenv').config();
 
@@ -38,15 +38,15 @@ console.log(dbConfig[nodeEnv]);
       //   connection: ':memory:',
       // }
     }),
-    ObjectionModule.forFeature([Addon, Brand, Category]),
+    ObjectionModule.forFeature([Addon, Brand, Category, User]),
     // UsersModule,
   ],
   controllers: [
     AddonsController,
     BrandsController,
     CategoriesController,
-    UsersService,
+    UsersController,
   ],
-  providers: [AddonsService, BrandsService, CategoriesService, UsersController],
+  providers: [AddonsService, BrandsService, CategoriesService, UsersService],
 })
 export class AppModule {}
