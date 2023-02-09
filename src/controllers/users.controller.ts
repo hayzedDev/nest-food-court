@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dtos/usersdto/create-user.dto';
@@ -13,11 +15,16 @@ import { UpdateUserDto } from '../dtos/usersdto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  // constructor()
 
-  @Post()
+  constructor(
+    @Inject(forwardRef(() => UsersService))
+    private readonly usersService: UsersService,
+  ) {}
+
+  @Post('/users')
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return await this.usersService.create(createUserDto);
   }
 
   @Get()
