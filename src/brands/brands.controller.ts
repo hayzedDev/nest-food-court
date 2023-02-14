@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { BrandsService } from '../services/brands.service';
-import { CreateBrandDto } from '../dtos/brandsdto/create-brand.dto';
-import { UpdateBrandDto } from '../dtos/brandsdto/update-brand.dto';
+import { BrandsService } from './brands.service';
+import { CreateBrandDto } from './brandsdto/create-brand.dto';
+import { UpdateBrandDto } from './brandsdto/update-brand.dto';
 
 @Controller()
 export class BrandsController {

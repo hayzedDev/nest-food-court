@@ -1,7 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-objection/dist';
-import { CreateUserDto } from '../dtos/usersdto/create-user.dto';
-import { UpdateUserDto } from '../dtos/usersdto/update-user.dto';
+import { CreateUserDto } from './usersdto/create-user.dto';
+import { UpdateUserDto } from './usersdto/update-user.dto';
 import { User } from '../entities/user.model';
 
 @Injectable()

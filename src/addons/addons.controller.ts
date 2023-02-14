@@ -14,11 +14,11 @@ import {
 
 import { response, Response } from 'express';
 
-import { AddonsService } from '../services/addons.service';
-import { CreateAddonDto } from '../dtos/addonsdto/create-addon.dto';
-import { UpdateAddonDto } from '../dtos/addonsdto/update-addon.dto';
+import { AddonsService } from './addons.service';
+import { CreateAddonDto } from './addonsdto/create-addon.dto';
+import { UpdateAddonDto } from './addonsdto/update-addon.dto';
 
-import { CreateCategoryDto } from './../dtos/categoriesdto/create-category.dto';
+import { CreateCategoryDto } from '../categories/categoriesdto/create-category.dto';
 
 @Controller()
 export class AddonsController {

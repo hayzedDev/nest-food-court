@@ -9,9 +9,9 @@ import {
   Inject,
   forwardRef,
 } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { CreateUserDto } from '../dtos/usersdto/create-user.dto';
-import { UpdateUserDto } from '../dtos/usersdto/update-user.dto';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './usersdto/create-user.dto';
+import { UpdateUserDto } from './usersdto/update-user.dto';
 
 @Controller()
 export class UsersController {

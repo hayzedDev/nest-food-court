@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
-import { BrandsService } from './services/brands.service';
-import { AddonsController } from './controllers/addons.controller';
-import { BrandsController } from './controllers/brands.controller';
-import { CategoriesController } from './controllers/categories.controller';
-import { AddonsService } from './services/addons.service';
+import { BrandsService } from './brands/brands.service';
+import { AddonsController } from './addons/addons.controller';
+import { BrandsController } from './brands/brands.controller';
+import { CategoriesController } from './categories/categories.controller';
+import { AddonsService } from './addons/addons.service';
 
 // import { KnexModule } from 'nest-knexjs';
 import { KnexModule } from 'nestjs-knex';
 
 import { dbConfig } from './../database/dbConfig';
-import { CategoriesService } from './services/categories.service';
+import { CategoriesService } from './categories/categories.service';
 import { ObjectionModule, Model } from 'nestjs-objection';
 import { Addon } from './entities/addons.models';
 import { Brand } from './entities/brands.models';
 import { Category } from './entities/categories.models';
-import { UsersController } from './controllers/users.controller';
-import { UsersService } from './services/users.service';
+import { UsersController } from './users/users.controller';
+import { UsersService } from './users/users.service';
 import { User } from './entities/user.model';
 
 require('dotenv').config();

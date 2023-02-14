@@ -10,9 +10,9 @@ import {
   Inject,
   forwardRef,
 } from '@nestjs/common';
-import { CategoriesService } from '../services/categories.service';
-import { CreateCategoryDto } from '../dtos/categoriesdto/create-category.dto';
-import { UpdateCategoryDto } from '../dtos/categoriesdto/update-category.dto';
+import { CategoriesService } from './categories.service';
+import { CreateCategoryDto } from './categoriesdto/create-category.dto';
+import { UpdateCategoryDto } from './categoriesdto/update-category.dto';
 import { Response } from 'express';
 
 @Controller()

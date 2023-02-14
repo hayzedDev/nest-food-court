@@ -11,8 +11,8 @@ import { InjectModel } from 'nestjs-objection';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
 // import { InjectModel } from 'nest-knexjs';
-import { CreateAddonDto } from '../dtos/addonsdto/create-addon.dto';
-import { UpdateAddonDto } from '../dtos/addonsdto/update-addon.dto';
+import { CreateAddonDto } from './addonsdto/create-addon.dto';
+import { UpdateAddonDto } from './addonsdto/update-addon.dto';
 import { Addon } from '../entities/addons.models';
 import { Category } from '../entities/categories.models';
 import { Brand } from '../entities/brands.models';

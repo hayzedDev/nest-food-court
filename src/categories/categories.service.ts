@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Knex } from 'knex';
 import { InjectModel } from 'nestjs-objection';
 
-import { CreateCategoryDto } from '../dtos/categoriesdto/create-category.dto';
-import { UpdateCategoryDto } from '../dtos/categoriesdto/update-category.dto';
+import { CreateCategoryDto } from './categoriesdto/create-category.dto';
+import { UpdateCategoryDto } from './categoriesdto/update-category.dto';
 import { Addon } from '../entities/addons.models';
 import { Brand } from '../entities/brands.models';
 import { Category } from '../entities/categories.models';
