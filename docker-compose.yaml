@@ -1,29 +1,45 @@
-version: '3'
+# version: '3'
+# services:
+#   postgres-development:
+#     image: postgres:13
+#     container_name: food-court-db
+#     env_file:
+#       - .env
+#     environment:
+#       POSTGRES_PASSWORD: ${DB_DEVELOPMENT_PASSWORD:-postgres}
+#     ports:
+#       - ${DB_DEVELOPMENT_PORT:-5432}:5432
+#   postgres-test:
+#     image: postgres:13
+#     container_name: food-court-test-db
+#     env_file:
+#       - .env
+#     environment:
+#       POSTGRES_PASSWORD: ${DB_TEST_PASSWORD:-postgres}
+#     ports:
+#       - ${DB_TEST_PORT:-5433}:5432
+#   postgres-production:
+#     image: postgres:13
+#     container_name: food-court-production-db
+#     env_file:
+#       - .env
+#     environment:
+#       POSTGRES_PASSWORD: ${DB_PRODUCTION_PASSWORD:-postgres}
+#     ports:
+#       - ${DB_PRODUCTION_PORT:-5434}:5432
+
+version: '3.8'
 services:
-  postgres-development:
-    image: postgres:13
-    container_name: food-court-db
-    env_file:
-      - .env
+  db:
+    image: postgres:14.1-alpine
+    restart: always
     environment:
-      POSTGRES_PASSWORD: ${DB_DEVELOPMENT_PASSWORD:-postgres}
+      - POSTGRES_USER=food-court
+      - POSTGRES_PASSWORD=hayzeddev
     ports:
-      - ${DB_DEVELOPMENT_PORT:-5432}:5432
-  postgres-test:
-    image: postgres:13
-    container_name: food-court-test-db
-    env_file:
-      - .env
-    environment:
-      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD:-postgres}
-    ports:
-      - ${DB_TEST_PORT:-5433}:5432
-  postgres-production:
-    image: postgres:13
-    container_name: food-court-production-db
-    env_file:
-      - .env
-    environment:
-      POSTGRES_PASSWORD: ${DB_PRODUCTION_PASSWORD:-postgres}
-    ports:
-      - ${DB_PRODUCTION_PORT:-5434}:5432
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
