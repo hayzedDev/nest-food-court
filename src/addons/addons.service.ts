@@ -14,7 +14,7 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { CreateAddonDto } from './addonsdto/create-addon.dto';
 import { UpdateAddonDto } from './addonsdto/update-addon.dto';
 import { Addon } from '../entities/addons.models';
-import { Category } from '../entities/categories.models';
+import { Category } from '../categories/categoryEntities/categories.models';
 import { Brand } from '../entities/brands.models';
 
 @Injectable()
@@ -143,12 +143,12 @@ export class AddonsService {
       .del();
     // create a new meal addon of the same id
     const obj = {
-      id: addons[0].id,
-      categoryId: categoryId || addons[0].categoryId,
+      id: +addons[0].id,
+      categoryId: categoryId || +addons[0]?.categoryId,
       addonMealName: updateAddonDto.name || addons[0].addonMealName,
       price: updateAddonDto.price,
       description: updateAddonDto.description,
-      brandId,
+      brandId: +brandId,
     };
     const mealAddon = await this.AddonModel.query().insert(obj);
 

@@ -19,15 +19,17 @@ import { CreateAddonDto } from './addonsdto/create-addon.dto';
 import { UpdateAddonDto } from './addonsdto/update-addon.dto';
 
 import { CreateCategoryDto } from '../categories/categoriesdto/create-category.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Addons')
 @Controller()
 export class AddonsController {
   constructor(
     @Inject(forwardRef(() => AddonsService))
     private readonly addonsService: AddonsService,
   ) {}
-
   @Post('brands/:brandId/addons')
+  @ApiOperation({ summary: 'Create a new meal addon for the specified brand' })
   async create(
     @Res({ passthrough: true }) response: Response,
     @Body() createAddonDto: CreateAddonDto,
@@ -55,6 +57,9 @@ export class AddonsController {
   }
 
   @Get('/brands/:brandId/addons')
+  @ApiOperation({
+    summary: `Retrieve a list of all meal addons for the specified brand`,
+  })
   async findAll(@Param('brandId') brandId: string) {
     const res = await this.addonsService.getMealAddons(brandId);
 
@@ -70,8 +75,10 @@ export class AddonsController {
 
     return res.mealAddons;
   }
-
   @Get('/brands/:brandId/addons/:addonId')
+  @ApiOperation({
+    summary: `Retrieve a single meal addon by its ID for the specified brand`,
+  })
   async findOne(
     @Param('brandId') brandId: string,
     @Param('addonId') addonId: string,
@@ -101,8 +108,10 @@ export class AddonsController {
     // res = JSON.parse(JSON.stringify(res));
     return res.addons ? res.addons[0] : res.addons;
   }
-
   @Patch('/brands/:brandId/addons/:addonId')
+  @ApiOperation({
+    summary: `Update a single meal addon by its ID for the specified brand`,
+  })
   async update(
     @Param('brandId') brandId: string,
     @Param('addonId') addonId: string,
@@ -134,8 +143,10 @@ export class AddonsController {
 
     return res.mealAddon;
   }
-
   @Delete('brands/:brandId/addons/:addonId')
+  @ApiOperation({
+    summary: `Delete a single meal addon by its ID for the specified brand`,
+  })
   async remove(
     @Param('brandId') brandId: string,
     @Param('addonId') addonId: string,

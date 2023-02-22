@@ -14,15 +14,19 @@ import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './categoriesdto/create-category.dto';
 import { UpdateCategoryDto } from './categoriesdto/update-category.dto';
 import { Response } from 'express';
-
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+@ApiTags('Categories')
 @Controller()
 export class CategoriesController {
   constructor(
     @Inject(forwardRef(() => CategoriesService))
     private readonly categoriesService: CategoriesService,
   ) {}
-
   @Post('/brands/:brandId/addon-categories')
+  @ApiOperation({
+    summary: `Create a new category for meal addons for the specified
+brand`,
+  })
   async createCategory(
     @Param('brandId') brandId: string,
     @Res({ passthrough: true }) response: Response,
@@ -44,34 +48,4 @@ export class CategoriesController {
 
     return res.newCategory;
   }
-
-  // @Post()
-  // create(@Body() createCategoryDto: CreateCategoryDto) {
-  //   return this.categoriesService.create(createCategoryDto);
-  // }
-
-  @Get()
-  findAll() {
-    return this.categoriesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-  ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(+id);
-  }
 }
-
-// create a new

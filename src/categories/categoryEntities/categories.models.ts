@@ -8,7 +8,7 @@ import {
 } from 'nestjs-objection';
 // import Brand from '../../models/brands';
 
-import { Brand } from './brands.models';
+import { Brand } from '../../entities/brands.models';
 
 @Table({ tableName: 'categories' })
 export class Category extends Model {

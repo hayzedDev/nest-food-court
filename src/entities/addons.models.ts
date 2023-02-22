@@ -7,7 +7,7 @@ import {
   columnTypes,
 } from 'nestjs-objection';
 import { Brand } from './brands.models';
-import { Category } from './categories.models';
+import { Category } from '../categories/categoryEntities/categories.models';
 
 @Table({ tableName: 'addon-meals' })
 export class Addon extends Model {
@@ -24,7 +24,7 @@ export class Addon extends Model {
     // join: { from: 'brands.id', to: 'addon-meals.id' },
     join: { from: 'addon-meals.brandId', to: 'brands.id' },
   })
-  brand: Brand;
+  brandId: number;
 
   @Relation({
     modelClass: Category,
@@ -32,7 +32,7 @@ export class Addon extends Model {
     // join: { from: 'categories.id', to: 'addon-meals.id' },
     join: { from: 'addon-meals.categoryId', to: 'categories.id' },
   })
-  category: Category;
+  categoryId: number;
   @Column({ type: columnTypes.string })
   addonMealName: string;
   @Column({ type: columnTypes.date })

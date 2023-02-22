@@ -13,18 +13,15 @@ import { CategoriesService } from './categories/categories.service';
 import { ObjectionModule, Model } from 'nestjs-objection';
 import { Addon } from './entities/addons.models';
 import { Brand } from './entities/brands.models';
-import { Category } from './entities/categories.models';
+import { Category } from './categories/categoryEntities/categories.models';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { User } from './entities/user.model';
 
 require('dotenv').config();
 
-const { DB_DEVELOPMENT_PORT, DB_DEVELOPMENT_PASSWORD, DB_HOST } = process.env;
-console.log(DB_DEVELOPMENT_PORT, DB_DEVELOPMENT_PASSWORD, DB_HOST);
-// console.log(process.env.DB_HOST);
 const nodeEnv = process.env.NODE_ENV;
-// console.log(nodeEnv);
+console.log(nodeEnv);
 console.log(dbConfig[nodeEnv]);
 @Module({
   imports: [
