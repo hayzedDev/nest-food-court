@@ -1,11 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from 'nestjs-objection/dist';
+import { User } from '../entities/user.entity';
 import { UserSignUpDTO } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
+  constructor(@InjectModel(User) private readonly UserModel: typeof User) {}
   async signup(user: UserSignUpDTO) {
-const userExists = await
+    /**Check if user exists */
+    const userExists = await this.UserModel.query().where({
+      email: user.email,
+    });
+
+    if (userExists)
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          error: 'User already exists',
+        },
+        HttpStatus.CONFLICT,
+      );
+
+    /**create user */
+    await this.UserModel.query().insert(user);
+    /**create a jwt token and sned it back  */
   }
 
   findAll() {

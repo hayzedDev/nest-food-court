@@ -14,7 +14,7 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { CreateAddonDto } from './dto/create-addon.dto';
 import { UpdateAddonDto } from './dto/update-addon.dto';
 import { Addon } from '../entities/addons.entity';
-import { Category } from '../categories/entities/categories.models';
+import { Category } from '../entities/categories.entity';
 import { Brand } from '../entities/brands.entity';
 
 @Injectable()

@@ -6,6 +6,7 @@ import {
   relationTypes,
   columnTypes,
 } from 'nestjs-objection';
+import { SharedEntity } from '../common/model/sharedEntity';
 
 @Table({ tableName: 'users' })
 export class User extends Model {

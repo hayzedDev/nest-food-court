@@ -13,7 +13,7 @@ import { CategoriesService } from './categories/categories.service';
 import { ObjectionModule, Model } from 'nestjs-objection';
 import { Addon } from './entities/addons.entity';
 import { Brand } from './entities/brands.entity';
-import { Category } from './categories/entities/categories.models';
+import { Category } from './entities/categories.entity';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { User } from './entities/user.entity';

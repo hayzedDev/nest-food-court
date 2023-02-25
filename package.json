@@ -27,7 +27,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "knex": "^2.4.1",
-    "nest-knexjs": "^0.0.13",
     "nestjs-knex": "^2.0.0",
     "nestjs-objection": "^3.0.0",
     "nodemon": "^2.0.20",
