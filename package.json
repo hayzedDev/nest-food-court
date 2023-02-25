@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "nest build --watch",
-    "start": "SET NODE_ENV=development& nodemon dist/src/main.js",
+    "start": "SET NODE_ENV=development& nodemon --inspect dist/src/main.js",
     "debug": "npm run start -- --debug",
     "rollback:migration": "knex migrate:down  20230209114331_update_user_table.js   --migrations-directory database/migrations/    --env development",
     "migrate": "knex migrate:up 20230225121523_update_user_table_2.js  --migrations-directory ./database/migrations/ --env development",

@@ -9,7 +9,7 @@ import { InjectModel } from 'nestjs-objection/dist';
 import { JwtService } from '@nestjs/jwt';
 
 import { User } from '../entities/user.entity';
-import { UserSignUpDTO } from './dto/create-auth.dto';
+import { UserSignUpDTO } from './dto/user-signup.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { ConfigService } from '@nestjs/config/dist';
 

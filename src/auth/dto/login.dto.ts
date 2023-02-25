@@ -6,7 +6,7 @@ export class LoginDTO {
   @IsNotEmpty({ message: 'Please provide  an $property' })
   @IsString({ message: '$property can only be a string' })
   @ApiProperty({
-    example: 'hayzedDev.foodcourt.io',
+    example: 'hayzedDev@foodcourt.io',
     description: 'The email of the user signing up',
   })
   email: string;

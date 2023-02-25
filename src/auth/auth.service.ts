@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-objection/dist';
 import { User } from '../entities/user.entity';
-import { UserSignUpDTO } from './dto/create-auth.dto';
-import { LoginDTO } from './dto/login.to';
+import { UserSignUpDTO } from './dto/user-signup.dto';
+import { LoginDTO } from './dto/login.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { JWTHelpersService } from './jwthelpers.service';
 
@@ -13,9 +13,10 @@ export class AuthService {
     private readonly jWTHelpersService: JWTHelpersService,
   ) {}
   async signup(user: UserSignUpDTO) {
+    // try {
     /**Check if user exists */
     const userExists = await this.UserModel.query().findOne({
-      where: { email: user.email },
+      email: user.email,
     });
 
     if (userExists)
@@ -36,14 +37,19 @@ export class AuthService {
       ...user,
       password: hashedPassword,
     });
+    console.log(newlyCreatedUser);
 
-    const { id, name, email, username } = newlyCreatedUser;
+    const { name, email, username } = user;
     /**create a jwt token and send it back  */
     const token = await this.jWTHelpersService.signToken({
-      id: id.toString(),
+      id: newlyCreatedUser.id.toString(),
     });
 
-    return { token, id, name, email, username };
+    return { token, id: newlyCreatedUser.id, name, email, username };
+    // } catch (error) {
+    //   console.log(error);
+    //   throw new HttpException('General server Error', 500);
+    // }
   }
 
   async loginUser(userInfo: LoginDTO) {
@@ -51,7 +57,7 @@ export class AuthService {
     const { email: emailInUserInfo, password } = userInfo;
 
     const userExists = await this.UserModel.query().findOne({
-      where: { email: emailInUserInfo },
+      email: emailInUserInfo,
     });
 
     if (!userExists) throw new HttpException('Invalid login credentials', 401);
