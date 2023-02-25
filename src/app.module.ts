@@ -17,6 +17,7 @@ import { Category } from './categories/categoryEntities/categories.models';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { User } from './entities/user.model';
+import { AuthModule } from './auth/auth.module';
 
 require('dotenv').config();
 
@@ -36,6 +37,7 @@ console.log(dbConfig[nodeEnv]);
       // }
     }),
     ObjectionModule.forFeature([Addon, Brand, Category, User]),
+    AuthModule,
     // UsersModule,
   ],
   controllers: [
