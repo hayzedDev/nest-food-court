@@ -22,9 +22,11 @@ export class AuthService {
         HttpStatus.CONFLICT,
       );
 
+    /**hash password */
+
     /**create user */
     await this.UserModel.query().insert(user);
-    /**create a jwt token and sned it back  */
+    /**create a jwt token and send it back  */
   }
 
   findAll() {
