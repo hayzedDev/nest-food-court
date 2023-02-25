@@ -1,6 +1,7 @@
 export type userSignInType = {
-  username: string;
+  token: string;
+  id: number;
+  name: string;
   email: string;
-  accessToken: string;
-  refreshToken: string;
+  username: string;
 };

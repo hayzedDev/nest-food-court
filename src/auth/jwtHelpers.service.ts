@@ -1,18 +1,25 @@
+import { pbkdf2Sync, randomBytes } from 'crypto';
 import {
   ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import { pbkdf2Sync, randomBytes } from 'crypto';
 import { InjectModel } from 'nestjs-objection/dist';
+import { JwtService } from '@nestjs/jwt';
+
 import { User } from '../entities/user.entity';
 import { UserSignUpDTO } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ConfigService } from '@nestjs/config/dist';
 
 @Injectable()
 export class JWTHelpersService {
-  constructor(@InjectModel(User) private readonly UserModel: typeof User) {}
+  constructor(
+    @InjectModel(User) private readonly UserModel: typeof User,
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {}
 
   async hashPassword(password: string, salt?: string) {
     try {
@@ -32,4 +39,12 @@ export class JWTHelpersService {
       );
     }
   }
+
+  async signToken(payload: { id: string }): Promise<string> {
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_ACCESS_TOKEN'),
+      expiresIn: this.configService.get('EXPIRES_IN'),
+    });
+  }
+  async verifyToken() {}
 }
