@@ -6,7 +6,7 @@ import {
   relationTypes,
   columnTypes,
 } from 'nestjs-objection';
-import { Brand } from './brands.models';
+import { Brand } from './brands.entity';
 import { Category } from '../categories/entities/categories.models';
 
 @Table({ tableName: 'addon-meals' })

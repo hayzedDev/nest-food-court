@@ -11,12 +11,12 @@ import { KnexModule } from 'nestjs-knex';
 import { dbConfig } from './../database/dbConfig';
 import { CategoriesService } from './categories/categories.service';
 import { ObjectionModule, Model } from 'nestjs-objection';
-import { Addon } from './entities/addons.models';
-import { Brand } from './entities/brands.models';
+import { Addon } from './entities/addons.entity';
+import { Brand } from './entities/brands.entity';
 import { Category } from './categories/entities/categories.models';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
-import { User } from './users/entities/user.model';
+import { User } from './entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 
 require('dotenv').config();

@@ -4,8 +4,8 @@ import { InjectModel } from 'nestjs-objection';
 
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Addon } from '../entities/addons.models';
-import { Brand } from '../entities/brands.models';
+import { Addon } from '../entities/addons.entity';
+import { Brand } from '../entities/brands.entity';
 import { Category } from './entities/categories.models';
 
 @Injectable()

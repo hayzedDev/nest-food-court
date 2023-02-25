@@ -7,7 +7,7 @@ import {
   columnTypes,
 } from 'nestjs-objection';
 import { Category } from '../categories/entities/categories.models';
-import { Addon } from './addons.models';
+import { Addon } from './addons.entity';
 
 @Table({ tableName: 'brands' })
 export class Brand extends Model {
