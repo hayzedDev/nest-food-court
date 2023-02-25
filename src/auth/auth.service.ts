@@ -3,10 +3,14 @@ import { InjectModel } from 'nestjs-objection/dist';
 import { User } from '../entities/user.entity';
 import { UserSignUpDTO } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { JWTHelpersService } from './jwthelpers.service';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel(User) private readonly UserModel: typeof User) {}
+  constructor(
+    @InjectModel(User) private readonly UserModel: typeof User,
+    private readonly jWTHelpersService: JWTHelpersService,
+  ) {}
   async signup(user: UserSignUpDTO) {
     /**Check if user exists */
     const userExists = await this.UserModel.query().where({
@@ -23,9 +27,9 @@ export class AuthService {
       );
 
     /**hash password */
-
+    await this.jWTHelpersService.hashPassword(user.password);
     /**create user */
-    await this.UserModel.query().insert(user);
+    await this.UserModel.query().insert({ ...user });
     /**create a jwt token and send it back  */
   }
 
