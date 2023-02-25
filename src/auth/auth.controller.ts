@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { userSignInType } from '../../return.types';
 import { AuthService } from './auth.service';
 import { UserSignUpDTO } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
@@ -16,7 +17,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async create(@Body() body: UserSignUpDTO): Promise<User> {
+  async create(@Body() body: UserSignUpDTO): Promise<userSignInType> {
     return await this.authService.signup(body);
   }
 

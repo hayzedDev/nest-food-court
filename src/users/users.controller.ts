@@ -10,8 +10,8 @@ import {
   forwardRef,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './usersdto/create-user.dto';
-import { UpdateUserDto } from './usersdto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller()
 export class UsersController {

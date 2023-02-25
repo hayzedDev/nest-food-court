@@ -11,10 +11,10 @@ import { InjectModel } from 'nestjs-objection';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
 // import { InjectModel } from 'nest-knexjs';
-import { CreateAddonDto } from './addonsdto/create-addon.dto';
-import { UpdateAddonDto } from './addonsdto/update-addon.dto';
+import { CreateAddonDto } from './dto/create-addon.dto';
+import { UpdateAddonDto } from './dto/update-addon.dto';
 import { Addon } from '../entities/addons.models';
-import { Category } from '../categories/categoryEntities/categories.models';
+import { Category } from '../categories/entities/categories.models';
 import { Brand } from '../entities/brands.models';
 
 @Injectable()

@@ -15,10 +15,10 @@ import {
 import { response, Response } from 'express';
 
 import { AddonsService } from './addons.service';
-import { CreateAddonDto } from './addonsdto/create-addon.dto';
-import { UpdateAddonDto } from './addonsdto/update-addon.dto';
+import { CreateAddonDto } from './dto/create-addon.dto';
+import { UpdateAddonDto } from './dto/update-addon.dto';
 
-import { CreateCategoryDto } from '../categories/categoriesdto/create-category.dto';
+import { CreateCategoryDto } from '../categories/dto/create-category.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Addons')

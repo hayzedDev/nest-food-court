@@ -1,8 +1,8 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-objection/dist';
-import { CreateUserDto } from './usersdto/create-user.dto';
-import { UpdateUserDto } from './usersdto/update-user.dto';
-import { User } from '../entities/user.model';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.model';
 
 @Injectable()
 export class UsersService {

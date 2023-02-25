@@ -13,10 +13,10 @@ import { CategoriesService } from './categories/categories.service';
 import { ObjectionModule, Model } from 'nestjs-objection';
 import { Addon } from './entities/addons.models';
 import { Brand } from './entities/brands.models';
-import { Category } from './categories/categoryEntities/categories.models';
+import { Category } from './categories/entities/categories.models';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
-import { User } from './entities/user.model';
+import { User } from './users/entities/user.model';
 import { AuthModule } from './auth/auth.module';
 
 require('dotenv').config();

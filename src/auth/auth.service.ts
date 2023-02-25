@@ -4,8 +4,8 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
-  signup(userSignUpDTO: UserSignUpDTO) {
-    return 'This action adds a new auth';
+  async signup(user: UserSignUpDTO) {
+const userExists = await
   }
 
   findAll() {
