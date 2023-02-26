@@ -23,11 +23,17 @@ export class AuthorizationGuard implements CanActivate {
 
     if (isPublic) return true;
 
-    const roles = this.reflector.get<string[]>('roles', context.getHandler());
+    const roles = this.reflector.get<string>('roles', context.getHandler());
+    console.log(roles);
+    console.log('now in authguard');
     if (!roles) {
       return true;
     }
-    const role = request.user?.role;
+    const role = request.role;
+    // const role = request.user?.role;
+    console.log(request.user);
+    console.log(request.role);
+
     if (role !== roles)
       throw new HttpException(
         'Authorization Error: You cannot use this service',

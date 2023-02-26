@@ -27,11 +27,11 @@ import { AuthorizationGuard } from '../guards/authorization.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 
 @ApiBearerAuth('access-token')
+@ApiTags('Addons')
+// @Roles('admin')
+@Controller()
 @UseGuards(AuthenticationGuard)
 @UseGuards(AuthorizationGuard)
-@Roles('user')
-@ApiTags('Addons')
-@Controller()
 export class AddonsController {
   constructor(
     @Inject(forwardRef(() => AddonsService))
@@ -82,8 +82,7 @@ export class AddonsController {
     return res.mealAddons;
   }
   @Get('/brands/:brandId/addons/:addonId')
-  // @Roles('user')
-  // @UseGuards(AuthorizationGuard)
+  @Roles('user')
   @ApiOperation({
     summary: `Retrieve a single meal addon by its ID for the specified brand`,
   })

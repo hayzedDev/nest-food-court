@@ -72,6 +72,7 @@ export class AuthenticationGuard implements CanActivate {
       if (!user)
         new HttpException('Authentication Error: User not found!', 404);
       request.user = { id: user?.id, role: user?.role };
+      request.role = user?.role;
       return true;
     } catch (error: any) {
       console.log(error);
