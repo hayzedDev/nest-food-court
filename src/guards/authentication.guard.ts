@@ -58,11 +58,7 @@ export class AuthenticationGuard implements CanActivate {
       const decodedToken = await this.jwtService.verify(token, {
         secret: this.configService.get('JWT_ACCESS_TOKEN'),
       });
-
-      if (!decodedToken)
-        throw new UnauthorizedException(
-          'Authentication expired! Please Login again',
-        );
+      // Note: If there is any error cause by jwtservice.verify, it would throw an error which would be caught by the catch block
 
       // check if user is found
       const user = await this.UserModel.query().findOne({
@@ -72,7 +68,6 @@ export class AuthenticationGuard implements CanActivate {
       if (!user)
         new HttpException('Authentication Error: User not found!', 404);
       request.user = { id: user?.id, role: user?.role };
-      request.role = user?.role;
       return true;
     } catch (error: any) {
       console.log(error);

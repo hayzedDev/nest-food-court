@@ -28,16 +28,15 @@ import { Roles } from '../common/decorators/roles.decorator';
 
 @ApiBearerAuth('access-token')
 @ApiTags('Addons')
-// @Roles('admin')
 @Controller()
-@UseGuards(AuthenticationGuard)
-@UseGuards(AuthorizationGuard)
+@UseGuards(AuthenticationGuard, AuthorizationGuard)
 export class AddonsController {
   constructor(
     @Inject(forwardRef(() => AddonsService))
     private readonly addonsService: AddonsService,
   ) {}
   @Post('brands/:brandId/addons')
+  @Roles('admin')
   @ApiOperation({ summary: 'Create a new meal addon for the specified brand' })
   async create(
     @Res({ passthrough: true }) response: Response,
@@ -63,6 +62,7 @@ export class AddonsController {
 
   @Public()
   @Get('/brands/:brandId/addons')
+  @Roles('admin')
   @ApiOperation({
     summary: `Retrieve a list of all meal addons for the specified brand`,
   })
@@ -81,8 +81,9 @@ export class AddonsController {
 
     return res.mealAddons;
   }
+
   @Get('/brands/:brandId/addons/:addonId')
-  @Roles('user')
+  @Roles('admin')
   @ApiOperation({
     summary: `Retrieve a single meal addon by its ID for the specified brand`,
   })
@@ -116,6 +117,7 @@ export class AddonsController {
     return res.addons ? res.addons[0] : res.addons;
   }
   @Patch('/brands/:brandId/addons/:addonId')
+  @Roles('admin')
   @ApiOperation({
     summary: `Update a single meal addon by its ID for the specified brand`,
   })
@@ -151,6 +153,7 @@ export class AddonsController {
     return res.mealAddon;
   }
   @Delete('brands/:brandId/addons/:addonId')
+  @Roles('admin')
   @ApiOperation({
     summary: `Delete a single meal addon by its ID for the specified brand`,
   })
