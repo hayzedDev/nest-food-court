@@ -37,8 +37,6 @@ export class AuthService {
       ...user,
       password: hashedPassword,
     });
-    console.log(newlyCreatedUser);
-
     const { name, email, username } = user;
     /**create a jwt token and send it back  */
     const token = await this.jWTHelpersService.signToken({
