@@ -18,8 +18,12 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { User } from './entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { AuthenticationGuard } from './authentication-guard/authentication.guard';
+import { JwtService } from '@nestjs/jwt';
 
 require('dotenv').config();
+
+import { ConfigService } from '@nestjs/config';
 
 const nodeEnv = process.env.NODE_ENV;
 console.log(nodeEnv);
@@ -38,6 +42,7 @@ console.log(dbConfig[nodeEnv]);
     }),
     ObjectionModule.forFeature([Addon, Brand, Category, User]),
     AuthModule,
+
     // UsersModule,
   ],
   controllers: [
@@ -46,6 +51,13 @@ console.log(dbConfig[nodeEnv]);
     CategoriesController,
     UsersController,
   ],
-  providers: [AddonsService, BrandsService, CategoriesService, UsersService],
+  providers: [
+    AddonsService,
+    BrandsService,
+    CategoriesService,
+    UsersService,
+    JwtService,
+    ConfigService,
+  ],
 })
 export class AppModule {}

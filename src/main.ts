@@ -15,7 +15,17 @@ async function bootstrap() {
     .setTitle('NESTJS Food-court')
     .setDescription('A food-court RESTful API for personal practise')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'apiKey',
+        name: 'x-food-court-token',
+        in: 'header',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'food court token',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

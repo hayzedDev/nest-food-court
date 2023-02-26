@@ -10,6 +10,7 @@ import {
   forwardRef,
   Inject,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 
 import { response, Response } from 'express';
@@ -19,8 +20,12 @@ import { CreateAddonDto } from './dto/create-addon.dto';
 import { UpdateAddonDto } from './dto/update-addon.dto';
 
 import { CreateCategoryDto } from '../categories/dto/create-category.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthenticationGuard } from '../authentication-guard/authentication.guard';
+import { Public } from '../common/decorators/public.decorator';
 
+@ApiBearerAuth('access-token')
+@UseGuards(AuthenticationGuard)
 @ApiTags('Addons')
 @Controller()
 export class AddonsController {
@@ -56,6 +61,7 @@ export class AddonsController {
     return addonServiceRes;
   }
 
+  @Public()
   @Get('/brands/:brandId/addons')
   @ApiOperation({
     summary: `Retrieve a list of all meal addons for the specified brand`,

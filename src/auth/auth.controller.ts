@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Headers,
+  UseGuards,
 } from '@nestjs/common';
 import { userSignInType } from '../../return.types';
 import { AuthService } from './auth.service';
