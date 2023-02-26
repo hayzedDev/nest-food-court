@@ -18,9 +18,9 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { User } from './entities/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { AuthenticationGuard } from './authentication-guard/authentication.guard';
+import { AuthenticationGuard } from './guards/authentication.guard';
 import { JwtService } from '@nestjs/jwt';
-
+import { Reflector } from '@nestjs/core';
 require('dotenv').config();
 
 import { ConfigService } from '@nestjs/config';
@@ -42,7 +42,6 @@ console.log(dbConfig[nodeEnv]);
     }),
     ObjectionModule.forFeature([Addon, Brand, Category, User]),
     AuthModule,
-
     // UsersModule,
   ],
   controllers: [
@@ -58,6 +57,8 @@ console.log(dbConfig[nodeEnv]);
     UsersService,
     JwtService,
     ConfigService,
+    Reflector,
+    User,
   ],
 })
 export class AppModule {}

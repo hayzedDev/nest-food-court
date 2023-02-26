@@ -14,7 +14,7 @@ export class LoginDTO {
   @IsString()
   @IsNotEmpty({ message: 'Please provide a $property' })
   @ApiProperty({
-    example: 'FoodCourt23456',
+    example: 'Admin$1111111',
     description: 'The password of the user signing in',
   })
   password: string;

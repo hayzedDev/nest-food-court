@@ -21,7 +21,7 @@ import { UpdateAddonDto } from './dto/update-addon.dto';
 
 import { CreateCategoryDto } from '../categories/dto/create-category.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthenticationGuard } from '../authentication-guard/authentication.guard';
+import { AuthenticationGuard } from '../guards/authentication.guard';
 import { Public } from '../common/decorators/public.decorator';
 
 @ApiBearerAuth('access-token')
@@ -40,10 +40,6 @@ export class AddonsController {
     @Body() createAddonDto: CreateAddonDto,
     @Param('brandId') brandId: string,
   ) {
-    console.log('hey');
-    // console.log(this, 'line 24');
-    // await this.addonsService.create(createAddonDto, brandId);
-
     let addonServiceRes = await this.addonsService.createNewMealAddon(
       createAddonDto,
       brandId,
