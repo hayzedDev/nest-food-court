@@ -23,9 +23,13 @@ import { CreateCategoryDto } from '../categories/dto/create-category.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthenticationGuard } from '../guards/authentication.guard';
 import { Public } from '../common/decorators/public.decorator';
+import { AuthorizationGuard } from '../guards/authorization.guard';
+import { Roles } from '../common/decorators/roles.decorator';
 
 @ApiBearerAuth('access-token')
 @UseGuards(AuthenticationGuard)
+@UseGuards(AuthorizationGuard)
+@Roles('user')
 @ApiTags('Addons')
 @Controller()
 export class AddonsController {
@@ -78,6 +82,8 @@ export class AddonsController {
     return res.mealAddons;
   }
   @Get('/brands/:brandId/addons/:addonId')
+  // @Roles('user')
+  // @UseGuards(AuthorizationGuard)
   @ApiOperation({
     summary: `Retrieve a single meal addon by its ID for the specified brand`,
   })

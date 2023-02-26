@@ -26,8 +26,7 @@ require('dotenv').config();
 import { ConfigService } from '@nestjs/config';
 
 const nodeEnv = process.env.NODE_ENV;
-console.log(nodeEnv);
-console.log(dbConfig[nodeEnv]);
+
 @Module({
   imports: [
     // KnexModule.forRoot({ config: dbConfig[nodeEnv] }),

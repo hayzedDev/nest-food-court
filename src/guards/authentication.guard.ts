@@ -13,6 +13,20 @@ import { BadRequestException } from '@nestjs/common/exceptions';
 import { User } from '../entities/user.entity';
 import { InjectModel } from 'nestjs-objection/dist';
 
+declare global {
+  // namespace Error {
+  interface Error {
+    name: string;
+    message: string;
+    stack?: string;
+  }
+  // }
+}
+// interface Error {
+//   name: string;
+//   message: string;
+//   stack?: string;
+// }
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
   constructor(
@@ -44,7 +58,6 @@ export class AuthenticationGuard implements CanActivate {
       const decodedToken = await this.jwtService.verify(token, {
         secret: this.configService.get('JWT_ACCESS_TOKEN'),
       });
-      console.log(decodedToken);
 
       if (!decodedToken)
         throw new UnauthorizedException(
@@ -58,11 +71,22 @@ export class AuthenticationGuard implements CanActivate {
 
       if (!user)
         new HttpException('Authentication Error: User not found!', 404);
-
-      request.user.role = user?.role;
+      request.user = { id: user?.id, role: user?.role };
       return true;
-    } catch (error) {
-      throw new BadRequestException('Bad request error');
+    } catch (error: any) {
+      console.log(error);
+
+      if (error.name === 'JsonWebTokenError')
+        throw new HttpException(
+          'Authentication error! Please Login again',
+          401,
+        );
+      if (error.name === 'TokenExpiredError')
+        throw new HttpException(
+          'Authentication expired! Please Login again',
+          401,
+        );
+      throw new HttpException(error.message, error.status || 500);
     }
   }
 }
