@@ -13,20 +13,6 @@ import { BadRequestException } from '@nestjs/common/exceptions';
 import { User } from '../entities/user.entity';
 import { InjectModel } from 'nestjs-objection/dist';
 
-declare global {
-  // namespace Error {
-  interface Error {
-    name: string;
-    message: string;
-    stack?: string;
-  }
-  // }
-}
-// interface Error {
-//   name: string;
-//   message: string;
-//   stack?: string;
-// }
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
   constructor(
